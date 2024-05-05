@@ -19,11 +19,11 @@ password.send_keys(my_password)
 
 driver.find_element(By.TAG_NAME, "button").click()
 driver.implicitly_wait(1)
-
 driver.get("https://www.twilightwars.com/games/66208b559a33e30015a5f1c2")
-wait = WebDriverWait(driver, timeout=2)
-element = wait.until(EC.presence_of_element_located((By.ID, "turn-message")))
-
-#which_game = driver.get()
-whose_turn = driver.find_element(By.CLASS_NAME, "player-name")
-print(whose_turn)
+message = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, "desktop-turn-display"))).get_attribute("value")
+game = driver.title.rstrip(" | Twilight Wars")
+element = driver.find_element(By.CLASS_NAME, "player-name")
+player = element.get_attribute("innerText")
+text = " is waiting for @"
+outbound = game+text+player
+print(outbound)
